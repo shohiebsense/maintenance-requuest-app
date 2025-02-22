@@ -27,7 +27,8 @@ type AddOrEditRequestViewProps = {
   }) => void;
 };
 
-export const AddOrEditRequestView = ({
+
+const AddOrEditRequestView = ({
   initialRequest,
   onSubmit,
 }: AddOrEditRequestViewProps) => {
@@ -79,9 +80,14 @@ export const AddOrEditRequestView = ({
         onChangeText={setType}
       />
 
-      <TouchableOpacity style={styles.button} onPress={handleSubmit}>
+      <TouchableOpacity style={styles.button} onPress={() => { 
+        handleSubmit();
+      }}>
         <Text style={styles.buttonText}>Save</Text>
       </TouchableOpacity>
     </ScrollView>
   );
 };
+
+
+export default AddOrEditRequestView;

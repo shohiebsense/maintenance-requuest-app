@@ -6,11 +6,11 @@ import {
   SafeAreaView,
   TouchableOpacity,
 } from "react-native";
-import { styles } from "./HomePageStyles";
-import HomePageStore from "./HomePageStore"; 
-import { observer } from "mobx-react-lite"; 
-import { useNavigation } from "@react-navigation/native"; 
-import { HomeScreenNavigationProp } from "../../navigation_types"; 
+import styles from "./HomePageStyles";
+import HomePageStore from "./HomePageStore";
+import { observer } from "mobx-react-lite";
+import { useNavigation } from "@react-navigation/native";
+import { HomeScreenNavigationProp } from "../../navigation_types";
 export type RequestType = {
   title: string;
   date: string;
@@ -29,7 +29,6 @@ interface StatCardProps {
   label: string;
 }
 
-
 const StatCard: React.FC<StatCardProps> = ({ value, label }) => (
   <View style={styles.statCard}>
     <Text style={styles.statValue}>{value}</Text>
@@ -37,7 +36,7 @@ const StatCard: React.FC<StatCardProps> = ({ value, label }) => (
   </View>
 );
 
-export const HomePageView = observer(() => {
+const HomePageView = observer(() => {
   const navigation = useNavigation<HomeScreenNavigationProp>();
   const getStatusColor = (status: string) => {
     switch (status.toLowerCase()) {
@@ -53,10 +52,7 @@ export const HomePageView = observer(() => {
         return "#cccccc";
     }
   };
-    
-  const { requests } = HomePageStore; 
 
-  
   return (
     <SafeAreaView style={styles.safeArea}>
       <View style={styles.container}>
@@ -68,7 +64,7 @@ export const HomePageView = observer(() => {
           <StatCard value={3} label="Average time (days) to resolve" />
         </View>
         <ScrollView contentContainerStyle={styles.scrollContainer}>
-          {requests.map((request, index) => (
+          {HomePageStore.requests.map((request, index) => (
             <View key={index} style={styles.card}>
               <View style={styles.headerContainer}>
                 <Text style={styles.title}>{request.title}</Text>
@@ -93,16 +89,9 @@ export const HomePageView = observer(() => {
         </ScrollView>
         <TouchableOpacity
           style={styles.fab}
-          onPress={() =>
-            navigation.navigate("AddOrEditRequest", {
-              request: {
-                title: "Existing Request",
-                status: "Open",
-                info: "This is an existing request",
-                date: "2023-01-01",
-              },
-            })
-          }
+          onPress={() => {
+            navigation.navigate("AddOrEditRequest", {});
+          }}
         >
           <Text style={styles.fabIcon}>+</Text>
         </TouchableOpacity>
@@ -110,3 +99,5 @@ export const HomePageView = observer(() => {
     </SafeAreaView>
   );
 });
+
+export default HomePageView;

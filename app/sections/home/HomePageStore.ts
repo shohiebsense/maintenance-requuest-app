@@ -1,24 +1,19 @@
 // stores/HomePageStore.ts
-import { makeAutoObservable } from "mobx";
+import { makeAutoObservable, runInAction } from "mobx";
 import { RequestType } from "./HomePageView";
 
 class HomePageStore {
-    requests: RequestType[] = [
-        {
-            title: "Front Door Look broken",
-            date: "11 Dec 2024",
-            status: "Urgent",
-            info: "What is a Breakup?",
-            type: "The Cracked",
-        },
-    ];
+    requests: RequestType[] = [];
 
     constructor() {
         makeAutoObservable(this);
     }
 
     addRequest(request: RequestType) {
+        console.log("Adding request:", request); // Debugging
         this.requests.push(request);
+        console.log("Adding request:", this.requests); // Debugging
+
     }
 
     editRequest(oldTitle: string, updatedRequest: RequestType) {

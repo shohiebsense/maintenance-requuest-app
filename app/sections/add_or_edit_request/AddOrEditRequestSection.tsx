@@ -1,7 +1,8 @@
 import React from "react";
 import { SafeAreaView } from "react-native";
-import { AddOrEditRequestView } from "./AddOrEditRequestView";
+import AddOrEditRequestView from "./AddOrEditRequestView";
 import HomePageStore from "../home/HomePageStore";
+import { useNavigation } from "@react-navigation/native";
 
 type AddOrEditRequestSectionProps = {
   route?: {
@@ -21,6 +22,7 @@ export const AddOrEditRequestSection = ({
   route,
 }: AddOrEditRequestSectionProps) => {
   const initialRequest = route?.params?.request;
+  const navigation = useNavigation(); 
 
   const handleSubmit = (request: {
     title: string;
@@ -29,16 +31,20 @@ export const AddOrEditRequestSection = ({
     type?: string;
     date: string;
   }) => {
+    console.error("add request");
+    console.error("add request", initialRequest);
+
     if (initialRequest) {
-      // Edit existing request
       HomePageStore.editRequest(initialRequest.title, request);
     } else {
-      // Add new request
+      console.error("add request");
       HomePageStore.addRequest({
         ...request,
         date: new Date().toLocaleDateString(),
       });
     }
+    navigation.goBack();
+
   };
 
   return (
