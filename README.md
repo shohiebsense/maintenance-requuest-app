@@ -1,50 +1,55 @@
-# Welcome to your Expo app 👋
-
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
-
-## Get started
-
-1. Install dependencies
-
-   ```bash
-   npm install
-   ```
-
-2. Start the app
-
-   ```bash
-    npx expo start
-   ```
-
-In the output, you'll find options to open the app in a
-
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
-
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
-
-## Get a fresh project
-
-When you're ready, run:
+# Sample Usage
 
 ```bash
-npm run reset-project
+curl -X POST "http://localhost:18080/graphql" \
+ -H "Content-Type: application/json" \
+ -d '{"query": "query getAllRequests { hello }"}'
+
+curl -X POST "http://localhost:18080/graphql" \
+ -H "Content-Type: application/json" \
+--data-binary '{"query":"{ getAllRequests }"}'
+
+curl -X POST "http://localhost:18080/graphql" \
+ -H "Content-Type: application/json" \
+ -d '{"query":"{ getAllRequests }"}'
+
+curl -X POST "http://localhost:18080/graphql" \
+ -H "Content-Type: application/json" \
+ -d '{"query":"{ getAllBooks }"}'
+
+curl -X POST "http://localhost:18080/graphql" \
+ -H "Content-Type: application/json" \
+ -d '{ "query": "{ getAllBooks { id name author { firstName lastName } } }" }'
+
+
+curl -X POST "http://localhost:18080/graphql" \
+ -H "Content-Type: application/json" \
+ -d '{"query": "query getAllRequests { hello }"}'
+
+curl -X POST http://localhost:18080/graphql \
+ -H "Content-Type: application/json" \
+ -d '{ "query": "{ getAllRequests { id title date status info type } }" }'
+
+curl -X POST 'http://localhost:18080/graphql' \
+ -H 'content-type: application/json' \
+ --data-binary '{"query":"{ bookById(id:\"book-1\") { name, pageCount, author { firstName, lastName} } }"}'
+
+
+
+curl -X POST "http://localhost:18080/graphql" \
+ -H "Content-Type: application/json" \
+ -d '{"query": "query { hello }"}'
+
+
+ curl -X POST http://localhost:18080/graphql \
+ -H "Content-Type: application/json" \
+ -d '{"query": "{ getAllRequests { id title date status info type } }"}'
+
+curl -X POST http://localhost:18080/graphql \
+ -H "Content-Type: application/json" \
+ -d '{"query": "mutation { addRequest(title: \"New Request\", date: \"2025-02-23\", status: \"Pending\", info: \"Request details here\", type: \"General\") { id title date status info type } }"}'
+
+npx wscat -c ws://localhost:18080/ws
+
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
-
-## Learn more
-
-To learn more about developing your project with Expo, look at the following resources:
-
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
-
-## Join the community
-
-Join our community of developers creating universal apps.
-
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
