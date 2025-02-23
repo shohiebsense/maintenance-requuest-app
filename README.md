@@ -48,7 +48,7 @@ When it's online, push them.
 - ❌ metrics
 
 ```txt
-i don't have time to think through that one. my 
+i don't have time to think through that one. 
 ```
 
 ## Build
