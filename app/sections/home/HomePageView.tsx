@@ -12,6 +12,7 @@ import { observer } from "mobx-react-lite";
 import { useNavigation } from "@react-navigation/native";
 import { HomeScreenNavigationProp } from "../../navigation_types";
 export type RequestType = {
+  id: string;
   title: string;
   date: string;
   status: string;

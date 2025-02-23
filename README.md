@@ -1,5 +1,11 @@
 # Sample Usage
 
+## Build
+
+```
+ npx expo start                   
+```
+
 ```bash
 curl -X POST "http://localhost:18080/graphql" \
  -H "Content-Type: application/json" \
