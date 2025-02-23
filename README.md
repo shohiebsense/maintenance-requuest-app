@@ -1,11 +1,8 @@
-# Maintenance Requ(u)est App
-
-## Checklist Requirement Criterias
-
-[x] Track the time taken to resolve a request and display: 
 
 
 ## Build
+
+this uses ios simulator for development process.
 
 ```
  npx expo start                   
