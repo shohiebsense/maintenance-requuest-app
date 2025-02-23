@@ -96,7 +96,7 @@ class HomePageStore {
                 ) {
                     this.requests.push(newRequest);
                 } else {
-                    console.error("unparsed request", newRequest, getFileAndLineNumber(2),);
+                    console.log("unparsed request", newRequest, getFileAndLineNumber(2),);
                 }
             } catch (error) {
                 console.error("Error parsing WebSocket message:", error);

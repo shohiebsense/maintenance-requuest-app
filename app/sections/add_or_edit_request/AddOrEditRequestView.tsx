@@ -15,7 +15,7 @@ type AddOrEditRequestViewProps = {
     title: string;
     status: string;
     info: string;
-    type?: string;
+    urgentLevel: string;
     date: string;
   };
   onSubmit: (request: {
@@ -23,7 +23,7 @@ type AddOrEditRequestViewProps = {
     title: string;
     status: string;
     info: string;
-    type?: string;
+    urgentLevel: string;
     date: string;
   }) => void;
 };
@@ -37,11 +37,11 @@ const AddOrEditRequestView = ({
   const [title, setTitle] = useState(initialRequest?.title || "");
   const [status, setStatus] = useState(initialRequest?.status || "Open");
   const [info, setInfo] = useState(initialRequest?.info || "");
-  const [type, setType] = useState(initialRequest?.type || "");
+  const [urgentLevel, setUrgentLevel] = useState(initialRequest?.urgentLevel || "");
   const [date, setDate] = useState(initialRequest?.date || "");
 
   const handleSubmit = () => {
-    onSubmit({id, title, status, info, type, date });
+    onSubmit({ id, title, status, info, urgentLevel, date });
   };
 
   return (
@@ -77,9 +77,9 @@ const AddOrEditRequestView = ({
       <Text style={styles.label}>Type (Optional)</Text>
       <TextInput
         style={styles.input}
-        placeholder="e.g., The Cracked"
-        value={type}
-        onChangeText={setType}
+        placeholder="Urgent"
+        value={urgentLevel}
+        onChangeText={setUrgentLevel}
       />
 
       <TouchableOpacity style={styles.button} onPress={() => { 

@@ -13,7 +13,7 @@ type AddOrEditRequestSectionProps = {
         title: string;
         status: string;
         info: string;
-        type?: string;
+        urgentLevel: string;
         date: string;
       };
     };
@@ -31,7 +31,7 @@ export const AddOrEditRequestSection = ({
     title: string;
     status: string;
     info: string;
-    type?: string;
+    urgentLevel: string;
     date: string;
   }) => {
 
