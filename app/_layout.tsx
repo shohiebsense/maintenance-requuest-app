@@ -5,7 +5,6 @@ import { createStackNavigator } from "@react-navigation/stack";
 import { AddOrEditRequestSection } from "./sections/add_or_edit_request/AddOrEditRequestSection";
 import { RootStackParamList } from "./navigation_types";
 
-
 const Stack = createStackNavigator<RootStackParamList>();
 
 export default function Layout() {

@@ -2,6 +2,7 @@
 import { makeAutoObservable, runInAction, action, computed } from "mobx";
 import { RequestType } from "../../models/RequestType";
 import { REACT_APP_WEBSOCKET_URL } from '@env';
+import { getFileAndLineNumber } from '../../util/common_utils';
 class HomePageStore {
     requests: RequestType[] = [];
     socket: WebSocket | null = null;
@@ -9,18 +10,16 @@ class HomePageStore {
     constructor() {
         makeAutoObservable(this, {
             editRequest: action,
-            addRequest: action, 
-            openRequests: computed,
-            urgentRequests: computed,
-            avgResolutionTime: computed,
+            addRequest: action,
+            getOpenRequestsTotal: computed,
+            getUrgentRequestsTotal: computed,
+            getAvgResolutionTime: computed,
         });
         this.connectWebSocket();
     }
 
     addRequest(request: RequestType) {
-        console.log("Adding request:", request);
         this.requests.push(request);
-        console.log("Adding request:", this.requests); 
 
     }
 
@@ -31,15 +30,15 @@ class HomePageStore {
         }
     }
 
-    get openRequests() {
+    get getOpenRequestsTotal() {
         return this.requests.filter((req) => req.status.toLowerCase() === "open").length;
     }
 
-    get urgentRequests() {
+    get getUrgentRequestsTotal() {
         return this.requests.filter((req) => req.type && req.type.toLowerCase() === "urgent").length;
     }
 
-    get avgResolutionTime() {
+    get getAvgResolutionTime() {
         const resolvedRequests = this.requests.filter(
             (req) => req.status.toLowerCase() === "resolved"
         );
@@ -68,11 +67,12 @@ class HomePageStore {
         this.socket.onopen = () => {
             console.log("WebSocket connected.");
         };
-
+    
         this.socket.onmessage = (event) => {
             console.log("WebSocket message received:", event.data);
             try {
                 const newRequest: RequestType | RequestType[] = JSON.parse(event.data);
+                
 
                 if (Array.isArray(newRequest)) {
                     const validRequests = newRequest.filter(
@@ -84,7 +84,7 @@ class HomePageStore {
                     if (validRequests.length > 0) {
                         this.requests.push(...validRequests);
                     } else {
-                        console.error("Unparsed request (array with no valid entries)", newRequest);
+                        console.error(getFileAndLineNumber(3), "Unparsed request (array with no valid entries)", newRequest);
                     }
                 } else if (
                     typeof newRequest === "object" &&
@@ -96,7 +96,7 @@ class HomePageStore {
                 ) {
                     this.requests.push(newRequest);
                 } else {
-                    console.error("Unparsed request", newRequest);
+                    console.error("unparsed request", newRequest, getFileAndLineNumber(2),);
                 }
             } catch (error) {
                 console.error("Error parsing WebSocket message:", error);
@@ -109,15 +109,10 @@ class HomePageStore {
 
         this.socket.onclose = () => {
             console.log("WebSocket disconnected. Reconnecting in 5 seconds...");
-
-            this.socket = null; 
-
+            this.socket = null;
             setTimeout(() => this.connectWebSocket(), 5000);
         };
     }
-
-
-
 }
 
 export default new HomePageStore();

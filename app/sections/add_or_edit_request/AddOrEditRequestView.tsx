@@ -19,6 +19,7 @@ type AddOrEditRequestViewProps = {
     date: string;
   };
   onSubmit: (request: {
+    id?: string;
     title: string;
     status: string;
     info: string;
@@ -32,6 +33,7 @@ const AddOrEditRequestView = ({
   initialRequest,
   onSubmit,
 }: AddOrEditRequestViewProps) => {
+  const id = undefined;
   const [title, setTitle] = useState(initialRequest?.title || "");
   const [status, setStatus] = useState(initialRequest?.status || "Open");
   const [info, setInfo] = useState(initialRequest?.info || "");
@@ -39,7 +41,7 @@ const AddOrEditRequestView = ({
   const [date, setDate] = useState(initialRequest?.date || "");
 
   const handleSubmit = () => {
-    onSubmit({ title, status, info, type, date });
+    onSubmit({id, title, status, info, type, date });
   };
 
   return (

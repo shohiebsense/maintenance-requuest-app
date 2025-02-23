@@ -11,7 +11,6 @@ import HomePageStore from "./HomePageStore";
 import { observer } from "mobx-react-lite";
 import { useNavigation } from "@react-navigation/native";
 import { HomeScreenNavigationProp } from "../../navigation_types";
-import { RequestType } from "../../models/RequestType";
 
 type HomePageViewProps = {
   stats: {};
@@ -31,8 +30,8 @@ const StatCard: React.FC<StatCardProps> = ({ value, label }) => (
 
 const HomePageView = observer(({ stats }: HomePageViewProps) => {
   const navigation = useNavigation<HomeScreenNavigationProp>();
-  const getStatusColor = (status: string) => {
-    switch (status.toLowerCase()) {
+  const getStatusColor = (urgentLevel: string) => {
+    switch (urgentLevel.toLowerCase()) {
       case "urgent":
         return "#ff8c00";
       case "emergency":
@@ -52,13 +51,16 @@ const HomePageView = observer(({ stats }: HomePageViewProps) => {
         <Text style={styles.header}>Maintenance Request</Text>
 
         <View style={styles.statsContainer}>
-          <StatCard value={HomePageStore.openRequests} label="Open Requests" />
           <StatCard
-            value={HomePageStore.urgentRequests}
+            value={HomePageStore.getOpenRequestsTotal}
+            label="Open Requests"
+          />
+          <StatCard
+            value={HomePageStore.getUrgentRequestsTotal}
             label="Urgent Requests"
           />
           <StatCard
-            value={HomePageStore.avgResolutionTime}
+            value={HomePageStore.getAvgResolutionTime}
             label="Average time (days) to resolve"
           />
         </View>
@@ -76,13 +78,13 @@ const HomePageView = observer(({ stats }: HomePageViewProps) => {
                 <View
                   style={[
                     styles.status,
-                    { backgroundColor: getStatusColor(request.status) },
+                    { backgroundColor: getStatusColor(request.urgentLevel) },
                   ]}
                 >
                   <Text style={styles.statusText}>{request.status}</Text>
                 </View>
 
-                <Text style={styles.infoText}>{request.info}</Text>
+                <Text style={styles.infoText}>{request.urgentLevel}</Text>
                 {request.type && (
                   <Text style={styles.typeText}>{request.type}</Text>
                 )}

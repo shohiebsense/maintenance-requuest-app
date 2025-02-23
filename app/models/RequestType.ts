@@ -1,8 +1,8 @@
 export type RequestType = {
-    id: string;
+    id?: string;
     title: string;
     date: string;
-    status: string;
-    info: string;
+    status: string; // "open" | "closed"
+    urgentLevel: string;
     type?: string;
 };
