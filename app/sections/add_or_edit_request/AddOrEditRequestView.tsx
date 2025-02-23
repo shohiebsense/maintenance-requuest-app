@@ -9,23 +9,11 @@ import {
 } from "react-native";
 import { Picker } from "@react-native-picker/picker";
 import { styles } from "./AddOrEditRequestStyles";
+import { RequestType } from "@/app/models/RequestType";
 
 type AddOrEditRequestViewProps = {
-  initialRequest?: {
-    title: string;
-    status: string;
-    info: string;
-    urgentLevel: string;
-    date: string;
-  };
-  onSubmit: (request: {
-    id?: string;
-    title: string;
-    status: string;
-    info: string;
-    urgentLevel: string;
-    date: string;
-  }) => void;
+  initialRequest?: RequestType;
+  onSubmit: (request: RequestType) => void;
 };
 
 
@@ -36,12 +24,12 @@ const AddOrEditRequestView = ({
   const id = undefined;
   const [title, setTitle] = useState(initialRequest?.title || "");
   const [status, setStatus] = useState(initialRequest?.status || "Open");
-  const [info, setInfo] = useState(initialRequest?.info || "");
+  const [type, setType] = useState(initialRequest?.type || "");
   const [urgentLevel, setUrgentLevel] = useState(initialRequest?.urgentLevel || "");
   const [date, setDate] = useState(initialRequest?.date || "");
 
   const handleSubmit = () => {
-    onSubmit({ id, title, status, info, urgentLevel, date });
+    onSubmit({ id, title, status, type, urgentLevel, date });
   };
 
   return (
@@ -70,8 +58,8 @@ const AddOrEditRequestView = ({
         style={[styles.input, { height: 100 }]}
         placeholder="Description of your request"
         multiline
-        value={info}
-        onChangeText={setInfo}
+        value={type}
+        onChangeText={setType}
       />
 
       <Text style={styles.label}>Type (Optional)</Text>

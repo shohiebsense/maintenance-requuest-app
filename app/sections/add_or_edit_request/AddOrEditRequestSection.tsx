@@ -4,18 +4,11 @@ import AddOrEditRequestView from "./AddOrEditRequestView";
 import HomePageStore from "../home/HomePageStore";
 import { useNavigation } from "@react-navigation/native";
 import { getCurrentDate } from "../../util/common_utils";
-
+import { RequestType } from "../../models/RequestType";
 type AddOrEditRequestSectionProps = {
   route?: {
     params?: {
-      request?: {
-        id?: string;
-        title: string;
-        status: string;
-        info: string;
-        urgentLevel: string;
-        date: string;
-      };
+      request?: RequestType;
     };
   };
 };
@@ -26,14 +19,7 @@ export const AddOrEditRequestSection = ({
   const initialRequest = route?.params?.request;
   const navigation = useNavigation(); 
 
-  const handleSubmit = (request: {
-    id?: string;
-    title: string;
-    status: string;
-    info: string;
-    urgentLevel: string;
-    date: string;
-  }) => {
+  const handleSubmit = (request: RequestType) => {
 
     if (initialRequest) {
       HomePageStore.editRequest(initialRequest.title, request);

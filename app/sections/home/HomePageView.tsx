@@ -75,16 +75,25 @@ const HomePageView = observer(({ stats }: HomePageViewProps) => {
                   <Text style={styles.date}>{request.date}</Text>
                 </View>
 
-                <View
-                  style={[
-                    styles.status,
-                    { backgroundColor: getStatusColor(request.urgentLevel) },
-                  ]}
-                >
-                  <Text style={styles.statusText}>{request.status}</Text>
-                </View>
+                <View style={styles.statusRow}>
+                  <View
+                    style={[
+                      styles.status,
+                      { backgroundColor: getStatusColor(request.urgentLevel) },
+                    ]}
+                  >
+                    <Text style={styles.statusText}>{request.urgentLevel}</Text>
+                  </View>
 
-                <Text style={styles.infoText}>{request.urgentLevel}</Text>
+                  <TouchableOpacity
+                    style={styles.resolveButton}
+                    onPress={() => HomePageStore.markAsResolved(request.id)}
+                  >
+                    <Text style={styles.resolveButtonText}>
+                      Mark as Resolved
+                    </Text>
+                  </TouchableOpacity>
+                </View>
                 {request.type && (
                   <Text style={styles.typeText}>{request.type}</Text>
                 )}

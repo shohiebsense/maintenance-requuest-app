@@ -1,5 +1,5 @@
 export type RequestType = {
-    id?: string;
+    id?: number;
     title: string;
     date: string;
     status: string; // "open" | "closed"

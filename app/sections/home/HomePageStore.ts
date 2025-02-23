@@ -55,6 +55,14 @@ class HomePageStore {
         return Number((totalDays / resolvedRequests.length).toFixed(1));
     }
 
+    markAsResolved(id?: number) {
+        const requestIndex = this.requests.findIndex((r) => r.id && r.id === id);
+        if (requestIndex !== -1) {
+            this.requests[requestIndex].urgentLevel = "Resolved";
+        }
+    }
+
+
     connectWebSocket() {
         if (this.socket && this.socket.readyState !== WebSocket.CLOSED) {
             console.log("WebSocket already connected. Skipping reconnection.");

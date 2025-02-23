@@ -118,6 +118,25 @@ const styles = StyleSheet.create({
         color: "#fff",
         fontWeight: "bold",
     },
+    statusRow: {
+        flexDirection: "row",
+        justifyContent: "space-between",
+        alignItems: "center",
+        marginTop: 5,
+    },
+
+    resolveButton: {
+        backgroundColor: "#4CAF50", // Green color
+        paddingVertical: 8,
+        paddingHorizontal: 12,
+        borderRadius: 10,
+        alignItems: "center",
+    },
+    resolveButtonText: {
+        color: "#FFFFFF",
+        fontWeight: "bold",
+        fontSize: 14,
+    },
 });
 
 export default styles;
