@@ -53,7 +53,7 @@ curl -X POST "http://localhost:18080/graphql" \
 
 curl -X POST http://localhost:18080/graphql \
  -H "Content-Type: application/json" \
- -d '{"query": "mutation { addRequest(title: \"New Request\", date: \"2025-02-23\", status: \"Pending\", info: \"Request details here\", type: \"General\") { id title date status info type } }"}'
+ -d '{"query": "mutation { addRequest(title: \"New Request\", date: \"2025-02-23\", status: \"Open\", info: \"Request details here\", type: \"Urgent\") { id title date status info type } }"}'
 
 npx wscat -c ws://localhost:18080/ws
 

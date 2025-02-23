@@ -21,8 +21,9 @@ export type RequestType = {
 };
 
 type HomePageViewProps = {
-  requests: RequestType[];
-  headerText: string;
+  stats: {
+   
+  };
 };
 
 interface StatCardProps {
@@ -37,7 +38,7 @@ const StatCard: React.FC<StatCardProps> = ({ value, label }) => (
   </View>
 );
 
-const HomePageView = observer(() => {
+const HomePageView = observer(({ stats }: HomePageViewProps) => {
   const navigation = useNavigation<HomeScreenNavigationProp>();
   const getStatusColor = (status: string) => {
     switch (status.toLowerCase()) {
@@ -60,9 +61,15 @@ const HomePageView = observer(() => {
         <Text style={styles.header}>Maintenance Request</Text>
 
         <View style={styles.statsContainer}>
-          <StatCard value={2} label="Open Requests" />
-          <StatCard value={3} label="Urgent Requests" />
-          <StatCard value={3} label="Average time (days) to resolve" />
+          <StatCard value={HomePageStore.openRequests} label="Open Requests" />
+          <StatCard
+            value={HomePageStore.urgentRequests}
+            label="Urgent Requests"
+          />
+          <StatCard
+            value={HomePageStore.avgResolutionTime}
+            label="Average time (days) to resolve"
+          />
         </View>
         <ScrollView contentContainerStyle={styles.scrollContainer}>
           {HomePageStore.requests.map((request, index) => (
