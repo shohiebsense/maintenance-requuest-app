@@ -1,7 +1,7 @@
 // stores/HomePageStore.ts
 import { makeAutoObservable, runInAction, action, computed } from "mobx";
-import { RequestType } from "./HomePageView";
-
+import { RequestType } from "../../models/RequestType";
+import { REACT_APP_WEBSOCKET_URL } from '@env';
 class HomePageStore {
     requests: RequestType[] = [];
     socket: WebSocket | null = null;
@@ -62,7 +62,8 @@ class HomePageStore {
             return;
         }
 
-        this.socket = new WebSocket("ws://0.0.0.0:18080/ws");
+
+        this.socket = new WebSocket(REACT_APP_WEBSOCKET_URL || "ws://localhost:18080");
 
         this.socket.onopen = () => {
             console.log("WebSocket connected.");
@@ -109,7 +110,7 @@ class HomePageStore {
         this.socket.onclose = () => {
             console.log("WebSocket disconnected. Reconnecting in 5 seconds...");
 
-            this.socket = null; // Reset the socket before reconnecting
+            this.socket = null; 
 
             setTimeout(() => this.connectWebSocket(), 5000);
         };

@@ -11,19 +11,10 @@ import HomePageStore from "./HomePageStore";
 import { observer } from "mobx-react-lite";
 import { useNavigation } from "@react-navigation/native";
 import { HomeScreenNavigationProp } from "../../navigation_types";
-export type RequestType = {
-  id: string;
-  title: string;
-  date: string;
-  status: string;
-  info: string;
-  type?: string;
-};
+import { RequestType } from "../../models/RequestType";
 
 type HomePageViewProps = {
-  stats: {
-   
-  };
+  stats: {};
 };
 
 interface StatCardProps {
@@ -72,28 +63,31 @@ const HomePageView = observer(({ stats }: HomePageViewProps) => {
           />
         </View>
         <ScrollView contentContainerStyle={styles.scrollContainer}>
-          {HomePageStore.requests.map((request, index) => (
-            <View key={index} style={styles.card}>
-              <View style={styles.headerContainer}>
-                <Text style={styles.title}>{request.title}</Text>
-                <Text style={styles.date}>{request.date}</Text>
-              </View>
+          {HomePageStore.requests
+            .slice()
+            .sort((a, b) => Number(b.id) - Number(a.id))
+            .map((request, index) => (
+              <View key={index} style={styles.card}>
+                <View style={styles.headerContainer}>
+                  <Text style={styles.title}>{request.title}</Text>
+                  <Text style={styles.date}>{request.date}</Text>
+                </View>
 
-              <View
-                style={[
-                  styles.status,
-                  { backgroundColor: getStatusColor(request.status) },
-                ]}
-              >
-                <Text style={styles.statusText}>{request.status}</Text>
-              </View>
+                <View
+                  style={[
+                    styles.status,
+                    { backgroundColor: getStatusColor(request.status) },
+                  ]}
+                >
+                  <Text style={styles.statusText}>{request.status}</Text>
+                </View>
 
-              <Text style={styles.infoText}>{request.info}</Text>
-              {request.type && (
-                <Text style={styles.typeText}>{request.type}</Text>
-              )}
-            </View>
-          ))}
+                <Text style={styles.infoText}>{request.info}</Text>
+                {request.type && (
+                  <Text style={styles.typeText}>{request.type}</Text>
+                )}
+              </View>
+            ))}
         </ScrollView>
         <TouchableOpacity
           style={styles.fab}
